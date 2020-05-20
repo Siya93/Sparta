@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Shoes Mall | Order Page </title>
+
+    <style>
+        /* Align, size, position of top page  */
+        .order_page {
+            margin: 50px auto;
+            width: 1000px;
+        }
+
+        .order_info {
+            width: 700px;
+        }
+    </style>
+
+    <script>
+        // input only number
+        function onlynumber() {
+            if ((event.keyCode < 48) || (event.keyCode > 57)) {
+                event.returnValue = false;
+            }
+        }
+
+        // Button push function
+        function push() {
+            var username = document.information.Username.value;
+            var address = document.information.Address.value;
+            var contect1 = document.information.Contect1.value;
+            var size = document.information.Size.value;
+            var amount = document.information.Amount.value;
+
+            if ((username.trim() == "") || (username == null)) {
+                alert('주문자 성함을 입력해주세요!');
+            } else if ((address.trim() == "") || (address == null)) {
+                alert('배송지를 입력해주세요!');
+            } else if ((contect1.trim() == "") || (contect1 == null)) {
+                alert('연락처1을 입력해주세요!');
+            } else if (size == "Choose..") {
+                alert('사이즈를 선택해주세요!');
+            } else if (amount == "Choose..") {
+                alert('수량을 선택해주세요!');
+            } else {
+                alert(username + '님, 주문이 정상적으로 접수되었습니다.\n항상 저희 사이트를 이용해주셔서 감사합니다.');
+            }
+        }
+    </script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="order_page">
+        <div style="text-align: center;">
+            <img src="http://blogfiles.naver.net/MjAyMDAzMDNfODcg/MDAxNTgzMTcxNTM4Njc3.uXrOlD0Hon-XVYYOLQm-S5d9Cv1dvFJp0-7u0t0I9ecg.0e_HUbiOggyyZLoNnzgH475pwI9151vnfnmYNIxWNwIg.PNG.newmediapd/20200303_%C8%D9%B6%F3_%B7%B9%C0%CC_%BF%EE%B5%BF%C8%AD_1RM01150_100.png" />
+        </div>
+        <div class="goods_text">
+            <h2 style="display:inline"> 스파르타코딩클럽 운동화 </h2>
+            <h6 style="display:inline"> 판매가 : 69,000원 </h6>
+            <hr>
+            <p> 스파르타코딩클럽이 자랑하는 운동화. 착용효과: 이동속도 + 100 </p>
+            <hr>
+        </div>
+
+        <div class="order_info">
+            <h2 style="display:inline"> 주문 정보 </h2>
+            <h6 style="display:inline">
+                <span style="color:red"> (*)는 필수 항목입니다. </span>
+            </h6>
+            <p></p>
+
+            <!-- Input order information -->
+            <form name="information">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="Username1">
+                            주문자 성함<span style="color:red">(*)</span>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                        aria-describedby="basic-addon1" name="Username">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                            배송지<span style="color:red">(*)</span>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Address" aria-label="Address"
+                        aria-describedby="basic-addon1" name="Address">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                            연락처1<span style="color:red">(*)</span>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Phone number 1" aria-label="Phone number"
+                        aria-describedby="basic-addon1" name="Contect1" onkeypress="onlynumber();">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">연락처2</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Phone number 2" aria-label="Phone number"
+                        aria-describedby="basic-addon1" name="Contect2" onkeypress="onlynumber();">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">
+                            사이즈<span style="color:red">(*)</span>
+                        </label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect01" name="Size">
+                        <option selected>Choose..</option>
+                        <option value="1">250</option>
+                        <option value="2">255</option>
+                        <option value="2">260</option>
+                        <option value="2">265</option>
+                        <option value="3">270</option>
+                        <option value="2">275</option>
+                        <option value="3">280</option>
+                        <option value="2">285</option>
+                        <option value="3">290</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">
+                            수량<span style="color:red">(*)</span>
+                        </label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect01" name="Amount">
+                        <option selected>Choose..</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="2">3</option>
+                        <option value="2">4</option>
+                        <option value="3">5</option>
+                        <option value="2">6</option>
+                        <option value="3">7</option>
+                        <option value="2">8</option>
+                        <option value="3">9</option>
+                        <option value="2">10</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">비고</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Notes" aria-label="Notes"
+                        aria-describedby="basic-addon1">
+                </div>
+            </form>
+        </div>
+
+        <!-- Order buttton -->
+        <button onclick="push()" type="button" class="btn btn-primary"> 주문 확정 </button>
+    </div>
+</body>
