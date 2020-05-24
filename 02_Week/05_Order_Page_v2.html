@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Shoes Mall | Order Page </title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <!-- jQuery를 import 합니다 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <style>
+        /* Align, size, position of top page*/
+        .order_top {
+            margin: 20px auto;
+            width: 1000px;
+        }
+
+        .product_figures {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+
+        .order_interface {
+            width: 700px;
+        }
+
+        .order_button {
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: " https://api.manana.kr/exchange/rate.json",
+                data: {},
+                success: function (response) {
+                    let usdkrw_rate = response[1]['rate'];
+                    $('#exchange_rate').text(usdkrw_rate);
+                }
+            })
+        });
+
+        function click_order() {
+            let order_name = $.trim($('#input_name').val());
+            let order_address = $.trim($('#input_address').val());
+            let order_phone_num1 = $.trim($('#input_phone_num1').val());
+            let order_size = $.trim($('#input_size').val());
+            let order_amount = $.trim($('#input_amount').val());
+
+            if ((order_name == "")) {
+                alert('주문자 성함을 입력해주세요!');
+                return;
+            } else if (order_address == "") {
+                alert('배송지를 입력해주세요!');
+                return;
+            } else if (order_phone_num1 == "") {
+                alert('연락처1을 입력해주세요!');
+                return;
+            } else if (order_size == "-- Select --") {
+                alert('사이즈를 선택해주세요!');
+                return;
+            } else if (order_amount == "-- Select --") {
+                alert('수량을 선택해주세요!');
+                return;
+            } else {
+                alert(order_name + '님, 주문이 정상적으로 접수되었습니다.\n항상 저희 사이트를 이용해주셔서 감사합니다.');
+            }
+        }
+
+        function click_clear() {
+            $('#input_name').val('');
+            $('#input_address').val('');
+            $('#input_phone_num1').val('');
+            $('#input_phone_num2').val('');
+            $('#input_note').val('');
+            $('#input_size').val('-- Select --');
+            $('#input_amount').val('-- Select --');
+        }
+
+        function price_calc() {
+            $('#total_price').empty();
+            let order_amount = $('#input_amount').val();
+            let usdkrw_rate = $('#exchange_rate').text();
+            let rate_number = Number(usdkrw_rate);
+            let price = 0;
+
+            if (order_amount == '-- Select --') {
+                $('#total_price').append('0 원');
+                return;
+            } else {
+                price = (65 * order_amount * rate_number);
+                let constant = Math.floor(price);
+                $('#total_price').append(constant.toLocaleString() + ' 원');
+            }
+        }
+
+        function only_number() {
+            if (event.keyCode < 48 || event.keyCode > 57) {
+                event.returnValue = false;
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <div class="order_top">
+        <div class="product">
+            <img src="http://blogfiles.naver.net/MjAyMDAzMDNfODcg/MDAxNTgzMTcxNTM4Njc3.uXrOlD0Hon-XVYYOLQm-S5d9Cv1dvFJp0-7u0t0I9ecg.0e_HUbiOggyyZLoNnzgH475pwI9151vnfnmYNIxWNwIg.PNG.newmediapd/20200303_%C8%D9%B6%F3_%B7%B9%C0%CC_%BF%EE%B5%BF%C8%AD_1RM01150_100.png"
+                class="product_figures">
+            <div class="product_texts">
+                <h2 style="display:inline"> 스파르타 코딩클럽 운동화 </h2>
+                <h6 style="display:inline"> 판매가격 : $65 (USD-KRW 환율 : <label id=exchange_rate></label>)</h6>
+                <!-- <h6 style="display:inline" id="exchange_rate"> </h6> -->
+                <hr>
+                <p> 스파르타 코딩클럽이 자랑하는 운동화. 착용효과: 이동속도 + 100 </p>
+                <hr>
+            </div>
+        </div>
+
+        <div class="order_interface">
+            <h2 style="display:inline"> 주문 정보 </h2>
+            <h6 style="display:inline"> <span style="color:red"> (*)는 필수 항목입니다. </span> </h6>
+            <br><br>
+
+            <!-- Order information -->
+            <form>
+                <!-- User name -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">주문자 성함<span style="color:red">(*)</span></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Username" id="input_name">
+                </div>
+                <!-- Address -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">배송지<span style="color:red">(*)</span></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Address" id="input_address">
+                </div>
+                <!-- Phone number -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">연락처1<span style="color:red">(*)</span></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Phone number 1" id="input_phone_num1"
+                        onkeypress="only_number()" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">연락처2</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Phone number 2" id="input_phone_num2"
+                        onkeypress="only_number()" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+                </div>
+                <!-- Size -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="input_size">사이즈<span style="color:red">(*)</span></label>
+                    </div>
+                    <select class="custom-select" id="input_size">
+                        <option selected>-- Select --</option>
+                        <option value="1">260</option>
+                        <option value="2">265</option>
+                        <option value="3">270</option>
+                        <option value="4">275</option>
+                        <option value="5">280</option>
+                        <option value="6">285</option>
+                        <option value="7">290</option>
+                    </select>
+                </div>
+                <!-- Amount -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="input_amount">수량<span style="color:red">(*)</span></label>
+                    </div>
+                    <select class="custom-select" id="input_amount" onchange="price_calc()">
+                        <option selected>-- Select --</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <!-- Notes -->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">기타</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Notes.." id="input_note">
+                </div>
+                <br>
+                <!-- Price -->
+                <h4>결제 금액 : <label id="total_price">0 원</label></h4>
+                <br>
+            </form>
+        </div>
+        <!-- Order button -->
+        <div class="order_button">
+            <button onclick="click_order()" type="button" class="btn btn-primary btn-lg">주문 확정</button>
+            <button onclick="click_clear(); price_calc()" type="button" class="btn btn-secondary btn-lg">다시 작성</button>
+        </div>
+    </div>
+</body>
