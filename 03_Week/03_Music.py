@@ -11,7 +11,15 @@ musics = soup.select('#body-content > div.newest-list > div > table > tbody > tr
 for music in musics:
     a_tag = music.select_one('td.info > a.title.ellipsis')
     if a_tag is not None:
-        rank = music.select_one('td.number').text.strip()
+        rank_before= music.select_one('td.number')
+        rank_before.span.decompose()
+        rank=rank_before.text.strip()
         title = a_tag.text.strip()
         artist = music.select_one('td.info > a.artist.ellipsis').text
         print(rank, title, artist)
+
+        #rank_before= music.select_one('td.number').span.decompose()
+        #rank=rank_before.text.strip()
+        #title = a_tag.text.strip()
+        #artist = music.select_one('td.info > a.artist.ellipsis').text
+        #print(rank, title, artist)
